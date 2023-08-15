@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Super simple SPA template</title>
+    </head>
+    <body>
+        <!--
+        This template will be mapped by convention to the Hello module.
+        The Hello module picks the message to display via the URL:
+        index.html#/hello/:msg
+        
+        You could easily fetch the template via a cached ASP.Net Controller,
+        using AJAX.
+        -->
+        <script id="hello.tmpl" type="text/html">
+            <p>Hello <span data-bind="text: message"></span>!</p>
+        </script>
+        <script id="bye.tmpl" type="text/html">
+            <p>Bye <span data-bind="text: message"></span>!</p>
+        </script>
+        
+        <!-- Just some fake menu -->
+        <a href="#/hello/sire">Hello</a>
+        <a href="#/bye/sire">Bye</a>
+        
+        <!--
+        This is where the template will be loaded and where the Knockout
+        magic will take place.
+        -->
+        <div id="bindingContext"></div>
+        
+        <script type="text/javascript" src="js/head.js"></script>
+        <script type="text/javascript">
+            head
+                .js('js/knockout.js')
+                .js('js/path.js')
+                .js('js/app.js', 'js/app.modules.js');
+                
+            head.ready(function () {
+                /*
+                If you like you could have custom non viewmodel routes mapped.
+                
+                E.g reguest for index.html#/users
+                app.router.register('users', function (req) {
+                    console.log(req);
+                });
+                
+                E.g reguest for index.html#/users/daniel                
+                app.router.register('users/:name', function (req) {
+                    console.log(req);
+                });
+                */
+                
+                //You need to tell what root element to use for as the main
+                //binding context. This is into where the HTML-template
+                //will be loaded before the viewmodel is bound with knockout to it.
+                app.init(document.getElementById('bindingContext'));
+            });            
+        </script>
+    </body>
+</html>
